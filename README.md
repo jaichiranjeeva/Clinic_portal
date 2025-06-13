@@ -81,7 +81,7 @@ go test -v
 
 ## 📬 API Documentation
 
--  Postman
+-  [Postman](https://documenter.getpostman.com/view/29357412/2sB2x6mXhR)
 
 ---
 
