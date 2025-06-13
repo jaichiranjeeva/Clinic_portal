@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"os"
 	"portal/models"
 
 	"gorm.io/driver/postgres"
@@ -11,7 +12,8 @@ import (
 var DB *gorm.DB
 
 func InitDB() {
-	dsn := "host=localhost user=postgres password= dbname=hospital port=5432 sslmode=disable"
+
+	dsn := os.Getenv("DB_URL")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
