@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clinic WebApp</title>
+  <link rel="stylesheet" href="../styles/form.css">
+</head>
+<body>
+  <a href="javascript:history.back()" class="back-button">← Back</a>
+  <nav>
+    <h3>Update Patient</h3>
+    <input id="updateId" placeholder="Patient ID">
+    <button onclick="Fetch()">Fetch</button>
+  </nav>
+  <div style="padding: 3px;"></div>
+  <nav>
+    <input id="updateName" placeholder="Name">
+    <input id="updateAge" type="number" placeholder="Age">
+    <input id="updateGender" placeholder="Gender">
+    <input id="updateNote" placeholder="Note">
+    <button onclick="updatePatient()">Update</button>
+  </nav>
+
+  <script>
+    const baseURL = "http://localhost:8088";
+    const token = localStorage.getItem("token") || "";
+    const role = localStorage.getItem("Role") || "";
+
+    function Fetch(){
+        const id = document.getElementById("updateId").value;
+        fetch(`${baseURL}/${role}/patients/${id}`, {
+        headers: { 'Authorization': token }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.error) alert("patient ID not found")
+        else{
+        document.getElementById('updateId').disabled = true;
+        document.getElementById("updateName").value = data.Name;
+        document.getElementById("updateAge").value = data.Age;
+        document.getElementById("updateGender").value = data.Gender;
+        document.getElementById("updateNote").value = data.Note;
+        }
+      });
+        
+    }
+
+    function updatePatient() {
+      const id = document.getElementById("updateId").value;
+      fetch(`${baseURL}/${role}/patients/${id}`, {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify({
+          name: document.getElementById("updateName").value,
+          age: parseInt(document.getElementById("updateAge").value),
+          gender: document.getElementById("updateGender").value,
+          note: document.getElementById("updateNote").value
+        })
+      }).then(res => res.json()).then(data => {
+        if(data.error) alert("Inavlid Data Entered")
+        else{
+        alert("Patient details updated successfully.");
+        document.getElementById('updateId').disabled = false;
+        document.getElementById("updateId").value = "";
+        document.getElementById("updateName").value = "";
+        document.getElementById("updateAge").value = "";
+        document.getElementById("updateGender").value = '';
+        document.getElementById("updateNote").value = "";
+        }
+      });
+    }
+
+    function fetchCall(){
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById("updateId").value=params.get("id");
+
+        Fetch();
+    }
+    fetchCall();
+  </script>
+</body>
+</html>

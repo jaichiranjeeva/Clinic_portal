@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="../styles/form.css">
+</head>
+<body>
+  <a href="javascript:history.back()" class="back-button">← Back</a>
+  <nav>
+    <h2>Register</h2>
+    <input id="regUsername" placeholder="Username">
+    <input id="regPassword" type="password" placeholder="Password">
+    <div id="selection">
+      <label for="regRole">Role</label>
+      <select id="regRole">
+        <option value="doctor">Doctor</option>
+        <option value="receptionist">Receptionist</option>
+      </select>
+    </div>
+    <button onclick="register()">Register</button>
+  </nav>
+
+  <script>
+    const baseURL = "http://localhost:8088";
+
+    function register() {
+      fetch(`${baseURL}/register`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('regUsername').value,
+          password: document.getElementById('regPassword').value,
+          role: document.getElementById('regRole').value
+        })
+      }).then(res => res.json()).then(data => {
+        if(data.error) alert(data.error);
+        else{
+          alert("User has been created successfully");
+          window.location.href = "../index.html";
+        }
+    });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  background-color: #f9fafb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+#patientsTable {
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 900px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#patientsTable thead tr {
+  background-color: #3498db;
+  color: white;
+  text-align: left;
+  height: 50px;
+}
+
+#patientsTable th {
+  padding: 12px 15px;
+  width: 20%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#patientsTable tbody tr {
+  height: 50px;
+  border-bottom: 1px solid #ddd;
+}
+
+#patientsTable td {
+  padding: 12px 15px;
+  width: 20%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+  position: relative;
+}
+
+#patientsTable td {
+  max-height: 50px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background: #2980b9;
+}
+
+#patientsTable td::-webkit-scrollbar {
+  height: 6px;
+}
+
+#patientsTable td::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 3px;
+}
+
+#patientsTable tbody tr:nth-child(even) {
+  background-color: #f7f9fc;
+}
+
+@media (max-width: 600px) {
+  #patientsTable, #patientsTable thead, #patientsTable tbody, #patientsTable th, #patientsTable td, #patientsTable tr {
+    display: block;
+  }
+  #patientsTable thead tr {
+    display: none;
+  }
+  #patientsTable tbody tr {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+  }
+  #patientsTable tbody td {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    white-space: normal;
+    overflow: visible;
+  }
+  #patientsTable tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #3498db;
+  }
+}

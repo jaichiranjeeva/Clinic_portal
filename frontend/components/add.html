@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clinic WebApp</title>
+  <link rel="stylesheet" href="../styles/form.css">
+</head>
+<body>
+  <a href="javascript:history.back()" class="back-button">← Back</a>
+  <nav>
+    <h3>Add Patient</h3>
+    <input id="patientName" placeholder="Name">
+    <input id="patientAge" type="number" placeholder="Age">
+    <input id="patientGender" placeholder="Gender">
+    <input id="patientNote" placeholder="Note">
+    <button onclick="addPatient()">Add</button>
+  </nav>
+  <script>
+    const baseURL = "http://localhost:8088";
+    const token = localStorage.getItem("token") || "";
+     
+    function addPatient() {
+      fetch(`${baseURL}/receptionist/patients`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify({
+          name: document.getElementById("patientName").value,
+          age: parseInt(document.getElementById("patientAge").value),
+          gender: document.getElementById("patientGender").value,
+          note: document.getElementById("patientNote").value
+        })
+      }).then(res => res.json()).then(data => {
+        if(data.error) alert("Invalid Data")
+        else {
+          alert(`New Patient Registered successfully with patient ID:${data.ID}.`);
+        document.getElementById("patientName").value = "";
+        document.getElementById("patientAge").value = "";
+        document.getElementById("patientGender").value = '';
+        document.getElementById("patientNote").value = "";
+        }
+    });
+    }
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+  height: 100%;
+  background: #f0f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  flex-direction: column;
+}
+
+h1 {
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+nav {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+nav input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+nav button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+nav button:hover {
+  background-color: #2980b9;
+}
+
+nav a {
+  align-self: flex-end;
+  font-size: 0.9rem;
+  color: #3498db;
+  text-decoration: none;
+  padding: 0.4px 12px;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background: #2980b9;
+}
+
+nav select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+nav select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+.selection {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.selection label {
+  font-size: 1rem;
+  font-weight: 500;
+  min-width: 50px; 
+}
+
+.selection select {
+  flex-grow: 1; 
+  margin-bottom: 0; 
+}

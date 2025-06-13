@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clinic WebApp</title>
+  <link rel="stylesheet" href="styles/form.css">
+</head>
+<body>
+  <h1>Clinic Portal</h1>
+  <nav>
+    <input id="loginUsername" placeholder="Username">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <a href="components/register.html">Register</a>    
+  </nav>
+
+  <script>
+    const baseURL = "http://localhost:8088";
+
+    function login() {
+      fetch(`${baseURL}/login`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('loginUsername').value,
+          password: document.getElementById('loginPassword').value
+        })
+      }).then(res => res.json()).then(data => {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("Role", data.Role);
+          console.log(data.token);
+          window.location.href = "components/dashboard.html";
+        } else {
+          alert("Invalid Credentials");
+        }
+      });
+    }
+  </script>
+</body>
+</html>

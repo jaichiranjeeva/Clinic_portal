@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clinic WebApp</title>
+  <link rel="stylesheet" href="../styles/fetch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <a href="javascript:history.back()" class="back-button">← Back</a>
+  <table id="patientsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Note</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows will be inserted here by JS -->
+    </tbody>
+  </table>
+
+  <script>
+    const baseURL = "http://localhost:8088";
+    const token = localStorage.getItem("token") || "";
+    const role = localStorage.getItem("Role") || "";
+    function fetchPatients() {
+      fetch(`${baseURL}/${role}/patients`, {
+        headers: { 'Authorization': token }
+      })
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector("#patientsTable tbody");
+        tbody.innerHTML = "";
+        for (const p of data) {
+          tbody.innerHTML+=`
+          <tr>
+            <td>${p.ID}</td>
+            <td>${p.Name}</td>
+            <td>${p.Age}</td>
+            <td>${p.Gender}</td>
+            <td>${p.Note}</td>
+            <td><button onclick="editFunction(${p.ID})">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+            </td>
+          </tr>
+          `
+        }
+      });
+    }
+
+    async function editFunction(d) {
+      window.location.href = `update.html?id=${d}`;
+    }
+    fetchPatients();
+  </script>
+</body>
+</html>

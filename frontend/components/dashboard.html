@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+</head>
+<body>
+  
+  <p id="welcomeText"></p>
+  <h2>Welcome to your Dashboard</h2>
+  
+  <nav>
+    <div id="add" class="card" onclick="redirectTo('add')">
+      <h3>Register New Patient</h3>
+    </div>
+      <div class="card" onclick="redirectTo('fetch')">
+      <h3>Fetch All Patients</h3>
+    </div>
+    <div class="card" onclick="redirectTo('update')">
+      <h3>Update Patient</h3>
+    </div>
+    <div id="delete" class="card" onclick="redirectTo('delete')">
+      <h3>Delete Patient</h3>
+    </div>
+    <a href="../index.html" onclick="logout()">Logout</a>
+  </nav>
+
+  <script>    
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("Role") || "";
+    const add = document.getElementById("add");
+    const del = document.getElementById("delete");
+
+    function redirectTo(action) {
+      window.location.href = `${action}.html`;
+    }
+
+    if (!token) {
+      alert("Please login first.");
+      window.location.href = "../index.html";
+    } else {
+      console.log(token);
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      document.getElementById("welcomeText").innerText = `Hello, ${payload.username}!`;
+    }
+
+      if (role!=="receptionist") {
+      add.style.display = "none";
+      del.style.display = "none";
+    } else {
+      add.style.display = ""; 
+      del.style.display = "";
+    }
+    
+    function logout() {
+      localStorage.removeItem("token");
+      alert("Logged out successfully.");
+    }
+  </script>
+</body>
+</html>
